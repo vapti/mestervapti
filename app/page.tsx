@@ -1,7 +1,7 @@
 export default function home() {
   return (
     <div className="bg-neutral-900 py-20 w-full">
-      <div className="max-w-screen px-4 mx-auto">
+      <div className="max-w-screen-xl px-4 mx-auto">
         <div className="text-4xl font-bold">Hurtigt, nemt og billigt!</div>
         <hr className="opacity-10 py-2" />
         <img

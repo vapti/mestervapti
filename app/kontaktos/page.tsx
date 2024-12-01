@@ -1,8 +1,6 @@
 "use client";
-
-import React from "react";
-import { useState } from "react";
-
+import React, { useState } from "react";
+import { toast } from "sonner";
 export default function Kontaktos() {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,94 +8,95 @@ export default function Kontaktos() {
     number: "",
     message: "",
   });
-
-  const [status, setStatus] = useState('');
-
-  const handleChange = (e:any) => {
+  const [status, setStatus] = useState("");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
-
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('Sending...');
+    setStatus("Sending...");
     try {
-      const response = await fetch('https://localhost:3000/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("api/sendmail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
+      console.log("API Response status:", response.status);
+
       if (response.ok) {
-        setStatus('Message sent successfully!');
-        setFormData({ name: '', email: '', number: '', message: '' });
+        setStatus("Message sent successfully!");
+        toast.success("Besked sendt!");
+        setFormData({ name: "", email: "", number: "", message: "" });
       } else {
-        setStatus('Error sending message.');
+        setStatus("Error sending message.");
+        toast.error("Fejl ved afsendelse af besked.");
       }
     } catch (error) {
       console.error(error);
-      setStatus('Error sending message.');
+      setStatus("Error sending message.");
+      toast.error("Fejl ved afsendelse af besked.");
     }
   };
-  
-
   return (
     <div className="bg-neutral-900 py-20 w-full">
       <div className="max-w-screen-xl px-4 mx-auto">
-        <div className="text-4xl font-bold">Kontakt Os</div>
+        <div className="text-4xl font-bold text-white">Kontakt Os</div>
         <hr className="opacity-10 py-2" />
-
         <form onSubmit={handleSubmit}>
           <div className="w-full flex flex-col my-4">
             <label className="text-white" htmlFor="name">
               Dit Navn
             </label>
             <input
-              className="text-black bg-gray-50 border p-4"
+              className="text-black bg-gray-50 border p-4 rounded"
               type="text"
               id="name"
+              name="name"
               placeholder="Dit Navn..."
               autoComplete="off"
               value={formData.name}
               onChange={handleChange}
               required
-
             />
           </div>
-
           <div className="w-full flex flex-col my-4">
-            <label className="text-bold" htmlFor="mail">
+            <label className="text-white" htmlFor="email">
               E-Mail
             </label>
             <input
-              className="text-black bg-gray-50 border p-4"
-              type="text"
+              className="text-black bg-gray-50 border p-4 rounded"
+              type="email"
+              id="email"
+              name="email"
               value={formData.email}
               onChange={handleChange}
               required
               placeholder="Din E-Mail..."
               autoComplete="off"
-              id="name"
             />
           </div>
-
           <div className="w-full flex flex-col my-4">
-            <label className="text-bold" htmlFor="number">
+            <label className="text-white" htmlFor="number">
               Telefonnummer
             </label>
             <input
-              className="text-black bg-gray-50 border p-4"
-              type="text"    
+              className="text-black bg-gray-50 border p-4 rounded"
+              type="tel"
+              id="number"
+              name="number"
               value={formData.number}
               onChange={handleChange}
               placeholder="Dit Telefonnummer..."
               autoComplete="off"
-              id="name"
             />
           </div>
-
           <div className="w-full flex flex-col my-4">
-            <label className="text-bold" htmlFor="message">
+            <label className="text-white" htmlFor="message">
               Besked
             </label>
             <textarea
@@ -107,19 +106,19 @@ export default function Kontaktos() {
               maxLength={500}
               value={formData.message}
               onChange={handleChange}
-              className="text-black bg-gray-50 border p-4"
+              name="message"
+              id="message"
+              className="text-black bg-gray-50 border p-4 rounded"
               placeholder="Skriv om dit emne her...."
-              id=""
-            ></textarea>
+            />
           </div>
-
           <button
             type="submit"
-            className="px-4 py-2 w-40 bg-gray-800 text-white font-medium"
+            className="px-4 py-2 w-40 bg-gray-800 text-white font-medium rounded hover:bg-gray-700 transition-colors"
           >
             Send
           </button>
-          <p>{status}</p>
+          {status && <p className="mt-4 text-white">{status}</p>}
         </form>
       </div>
     </div>
