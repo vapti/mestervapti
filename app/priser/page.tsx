@@ -6,19 +6,19 @@ export default function Priser() {
       title: "Kloning af Styrebokse",
       note: "",
       price: 2500,
-      color: "bg-yellow-200",
+      color: "bg-red-200",
     },
     {
       title: "Normal Chiptuning (Motoroptimering)",
       note: "",
       price: 3000,
-      color: "bg-yellow-200",
+      color: "bg-gray-200",
     },
     {
       title: "Øko Chiptuning (Motoroptimering)",
       note: "",
       price: 3000,
-      color: "bg-yellow-200",
+      color: "bg-green-200",
     },
     {
       title: "Power Chiptuning (Motoroptimering)",
