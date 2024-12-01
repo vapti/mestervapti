@@ -11,6 +11,8 @@ const enableCors = (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 };
 
+
+// api der ikke virker så godt
 export default async function handler(req, res) {
   // Handle preflight requests
   if (req.method === 'OPTIONS') {
