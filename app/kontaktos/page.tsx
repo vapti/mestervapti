@@ -20,7 +20,7 @@ export default function Kontaktos() {
     e.preventDefault();
     setStatus("Sending...");
     try {
-      const response = await fetch("api/sendmail", {
+      const response = await fetch("pages/api/sendmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
