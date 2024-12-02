@@ -9,7 +9,9 @@ export default function Kontaktos() {
     message: "",
   });
   const [status, setStatus] = useState("");
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -20,7 +22,7 @@ export default function Kontaktos() {
     e.preventDefault();
     setStatus("Sending...");
     try {
-      const response = await fetch("pages/api/sendmail", {
+      const response = await fetch("/api/sendmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
