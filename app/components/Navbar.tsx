@@ -24,7 +24,7 @@ export default function Navbar() {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              viewBox="0 0 24 24"
+              viewBox="0 0 24 24" 
               className="w-6 h-6"
             >
               <path d="M4 6h16M4 12h16M4 18h16"></path>
@@ -32,28 +32,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        <ul className="font-roboto hidden md:flex space-x-4">
-          <li>
-            <a href="#">Forside</a>
-          </li>
-          <li>
-            <a href="/omos">Om Os</a>
-          </li>
-          <li>
-            <a href="/priser">Priser</a>
-          </li>
-          <li>
-            <a href="kontaktos">Kontakt Os</a>
-          </li>
-          <li>
-            <a href="/">Booking</a>
-          </li>
-        </ul>
-      </div>
-      {/* Mobile Menu */}
-
-      {isMenuOpen ? (
-        <ul className="flex-col md:hidden">
+        <ul className="text-white font-roboto hidden md:flex space-x-4">
           <li>
             <a href="/">Forside</a>
           </li>
@@ -66,8 +45,24 @@ export default function Navbar() {
           <li>
             <a href="/kontaktos">Kontakt Os</a>
           </li>
+        </ul>
+      </div>
+      {/* Mobile Menu */}
+
+      {isMenuOpen ? (
+        <ul className="text-white  justify-between flex-col md:hidden">
+          <li className="">
+            <br />
+            <a href="/">Forside</a>
+          </li>
           <li>
-            <a href="/booking">Booking</a>
+            <a href="/omos">Om Os</a>
+          </li>
+          <li>
+            <a href="/priser">Priser</a>
+          </li>
+          <li>
+            <a href="/kontaktos">Kontakt Os</a>
           </li>
         </ul>
       ) : null}

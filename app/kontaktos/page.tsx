@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { toast } from "sonner";
+
+import type { Metadata } from 'next'
+
 export default function Kontaktos() {
   const [formData, setFormData] = useState({
     name: "",
@@ -20,7 +22,7 @@ export default function Kontaktos() {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus("Sending...");
+    setStatus("Sender...");
     try {
       const response = await fetch("/api/sendmail", {
         method: "POST",
@@ -31,23 +33,21 @@ export default function Kontaktos() {
       console.log("API Response status:", response.status);
 
       if (response.ok) {
-        setStatus("Message sent successfully!");
-        toast.success("Besked sendt!");
+        setStatus("Din besked er blevet sendt afsted!");
         setFormData({ name: "", email: "", number: "", message: "" });
       } else {
-        setStatus("Error sending message.");
-        toast.error("Fejl ved afsendelse af besked.");
+        setStatus("Fejl ved afsendelse af besked.");
       }
     } catch (error) {
       console.error(error);
-      setStatus("Error sending message.");
-      toast.error("Fejl ved afsendelse af besked.");
+      setStatus("Fejl ved afsendelse af besked.");
     }
   };
   return (
     <div className="bg-neutral-900 py-20 w-full">
       <div className="max-w-screen-xl px-4 mx-auto">
-        <div className="text-4xl font-bold text-white">Kontakt Os</div>
+        <h1 className="text-4xl font-bold text-white">Kontakt os</h1>
+        <p className="text-sm text-white">Vi svarer indenfor 24 timer!</p>
         <hr className="opacity-10 py-2" />
         <form onSubmit={handleSubmit}>
           <div className="w-full flex flex-col my-4">
@@ -116,7 +116,7 @@ export default function Kontaktos() {
           </div>
           <button
             type="submit"
-            className="px-4 py-2 w-40 bg-gray-800 text-white font-medium rounded hover:bg-gray-700 transition-colors"
+            className="px-4 py-2 w-40 bg-neutral-800 text-white font-medium rounded hover:bg-gray-700 transition-colors"
           >
             Send
           </button>

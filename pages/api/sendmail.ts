@@ -34,12 +34,14 @@ export default async function handler(
     if (!name || !email || !message) {
       return res
         .status(400)
-        .json({ message: "Name, email, and message are required." });
+        .json({ message: "Navn, e-mail og besked er påkrævet." });
     }
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
+      host: 'smtp.sdmchiptuning.dk', // Erstat med din mailserver, hvis du bruger noget specifikt
+      port: 465, // Standard SMTP-port
+      secure: true, // Brug 'true' for 465, 'false' for 587
+      auth: { 
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
@@ -48,7 +50,7 @@ export default async function handler(
     try {
       console.log("Attempting to send email...");
       await transporter.sendMail({
-        from: process.env.EMAIL_USER,
+        from: email,
         replyTo: email,
         to: process.env.EMAIL_TO,
         subject: `Ny besked fra ${name}`,
